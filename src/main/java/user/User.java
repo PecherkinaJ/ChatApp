@@ -8,7 +8,7 @@ public class User {
     private String password;
     DataBase db;
 
-    public User(String email, String password, String nickName){
+    public void registerNewUser(String email, String password, String nickName){
         this.email = email;
         this.password = password;
         this.nickName = nickName;
