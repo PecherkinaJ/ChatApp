@@ -1,4 +1,4 @@
-package dataBase;
+package com.MyChat.dataBase;
 
 public class DataBase {
 
