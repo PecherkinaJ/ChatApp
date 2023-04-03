@@ -1,10 +1,13 @@
 package com.MyChat.repositories;
 
+import java.util.Formatter;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.MyChat.user.NewUser;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -15,15 +18,16 @@ public class UserRepository {
         this.jdbc = jdbc;
     }
 
-    public void storeNewUser(NewUser newUser) {
-        String sql = "INSERT INTO users VALUES (null, ?, ?, ?)";
-        // так почему-то не работает
-        //INSERT INTO users (email, password, nickname) VALUES (?, ?, ?)  =>> Значение NULL не разрешено для поля "NICKNAME"
-        jdbc.update(sql, newUser.getEmail(), newUser.getPassword(), newUser.getNickName());
+    public void storeNewUser(NewUser newUser) throws SQLException {
+        String sql = new Formatter()
+                .format("INSERT INTO users_table (email, password, nickname) VALUES ('%s', '%s', '%s')",
+                        newUser.getEmail(), newUser.getPassword(), newUser.getNickName())
+                .toString();
+        jdbc.update(sql);
     }
 
-    public List<NewUser> getAllUsers(){
-        String sql = "SELECT * FROM users";
+    public List<NewUser> getAllUsers() {
+        String sql = "SELECT * FROM users_table";
         RowMapper<NewUser> mapper = (r, i) -> {
             NewUser rowObject = new NewUser();
             rowObject.setId(r.getInt("id"));
