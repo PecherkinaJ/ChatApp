@@ -3,6 +3,7 @@ package com.MyChat.controller;
 import org.springframework.web.bind.annotation.*;
 import com.MyChat.repositories.UserRepository;
 import com.MyChat.user.NewUser;
+import com.MyChat.response.ResponseToAddUser;
 
 import java.util.List;
 
@@ -16,11 +17,17 @@ public class UserController {
     }
 
     @PostMapping
-    public void addNewUserToDataBase(@RequestBody NewUser newUser) {
+    public ResponseToAddUser addNewUserToDataBase(@RequestBody NewUser newUser) {
         try {
+            System.out.println("email = " + newUser.getEmail());
+            System.out.println("password = " + newUser.getPassword());
+            System.out.println("nickname = " + newUser.getNickName());
             userRepository.storeNewUser(newUser);
+            return ResponseToAddUser.of("user added");
+
         } catch (Exception e) {
-            System.out.println("EXCEPTION!! = " + e);
+            System.out.println("EXCEPTION WHILE POST USER!! = " + e);
+            return ResponseToAddUser.of("smth went wrong; " + e);
         }
     }
 
@@ -29,7 +36,7 @@ public class UserController {
         try {
             return userRepository.getAllUsers();
         } catch (Exception e) {
-            System.out.println("EXCEPTION!! = " + e);
+            System.out.println("EXCEPTION WHILE GET USER!! = " + e);
         }
         return null;
     }

@@ -6,6 +6,16 @@ public class NewUser {
     private String email;
     private String password;
 
+//    public NewUser(String email, String password, String nickName) {
+//        this.email = email;
+//        this.password = password;
+//        this.nickName = nickName;
+//    }
+
+//    public NewUser() {
+//
+//    }
+
     public int getId() {
         return id;
     }
