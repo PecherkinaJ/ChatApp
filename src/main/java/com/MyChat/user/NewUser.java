@@ -2,14 +2,14 @@ package com.MyChat.user;
 
 public class NewUser {
     private int id;
-    private String nickName;
+    private String nickname;
     private String email;
     private String password;
 
-//    public NewUser(String email, String password, String nickName) {
+//    public NewUser(String email, String password, String nickname) {
 //        this.email = email;
 //        this.password = password;
-//        this.nickName = nickName;
+//        this.nickname = nickname;
 //    }
 
 //    public NewUser() {
@@ -24,12 +24,12 @@ public class NewUser {
         this.id = id;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {

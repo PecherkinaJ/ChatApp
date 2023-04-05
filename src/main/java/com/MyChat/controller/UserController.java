@@ -21,7 +21,7 @@ public class UserController {
         try {
             System.out.println("email = " + newUser.getEmail());
             System.out.println("password = " + newUser.getPassword());
-            System.out.println("nickname = " + newUser.getNickName());
+            System.out.println("nickname = " + newUser.getNickname());
             userRepository.storeNewUser(newUser);
             return ResponseToAddUser.of("user added");
 

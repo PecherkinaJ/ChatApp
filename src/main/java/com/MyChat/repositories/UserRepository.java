@@ -19,11 +19,9 @@ public class UserRepository {
     }
 
     public void storeNewUser(NewUser newUser) throws SQLException {
-        //игнорирует nickname!!
         String sql = new Formatter()
-                .format("INSERT INTO users_table VALUES (null, '%s', '%s', '%s')",
-//                .format("INSERT INTO users_table (email, password, nickname) VALUES ('%s', '%s', '%s')",
-                        newUser.getEmail(), newUser.getPassword(), newUser.getNickName())
+                .format("INSERT INTO users_table (email, password, nickname) VALUES ('%s', '%s', '%s')",
+                        newUser.getEmail(), newUser.getPassword(), newUser.getNickname())
                 .toString();
         jdbc.update(sql);
     }
@@ -35,7 +33,7 @@ public class UserRepository {
             rowObject.setId(r.getInt("id"));
             rowObject.setEmail(r.getString("email"));
             rowObject.setPassword(r.getString("password"));
-            rowObject.setNickName(r.getString("nickname"));
+            rowObject.setNickname(r.getString("nickname"));
             return rowObject;
         };
         return jdbc.query(sql, mapper);
