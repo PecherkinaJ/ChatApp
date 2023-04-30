@@ -7,12 +7,12 @@ import com.MyChat.response.ResponseToAddUser;
 
 import java.util.List;
 
-@RestController
 @RequestMapping("/users")
-public class UserController {
+@RestController
+public class AddNewUserController {
     private final UserRepository userRepository;
 
-    public UserController(UserRepository userRepository) {
+    public AddNewUserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
