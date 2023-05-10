@@ -1,6 +1,8 @@
-package dataBase;
+package com.MyChat.dataBase;
 
 public class DataBase {
+
+    // доступ к БД
 
     // медод добавления в БД
     // мб надо будет поменять местами if и try-catch;
