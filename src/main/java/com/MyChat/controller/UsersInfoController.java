@@ -56,7 +56,7 @@ public class UsersInfoController {
                         .status(HttpStatus.OK)
                         .body(userRepository.getOnlineUsers());
             } catch (Exception e) {
-                System.out.println("EXCEPTION WHILE GET USER!! = " + e);
+                System.out.println("EXCEPTION WHILE GET ONLINE USERS!! = " + e);
             }
         } else {
             return ResponseEntity

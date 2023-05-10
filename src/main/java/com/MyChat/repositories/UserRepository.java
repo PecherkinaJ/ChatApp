@@ -1,11 +1,9 @@
 package com.MyChat.repositories;
 
-import java.util.ArrayList;
 import java.util.Formatter;
 
 import com.MyChat.user.*;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
@@ -37,9 +35,9 @@ public class UserRepository {
         jdbc.update(sql);
     }
 
-    public void newOnlineUser(String email) throws SQLException {
+    public void addNewOnlineUser(String email) throws SQLException {
         String sql = new Formatter()
-                .format("INSERT INTO users_table (email) VALUES ('%s')", email)
+                .format("INSERT INTO online_users_table (email) VALUES ('%s')", email)
                 .toString();
         jdbc.update(sql);
     }
@@ -61,19 +59,22 @@ public class UserRepository {
                             user.getEmail(), user.getPassword())
                     .toString();
 
-            RowMapper<NewUser> mapper = (r, i) -> {
-                NewUser rowObject = new NewUser();
-                rowObject.setId(r.getInt("id"));
-                rowObject.setEmail(r.getString("email"));
-                rowObject.setPassword(r.getString("password"));
-                rowObject.setNickname(r.getString("nickname"));
-                return rowObject;
-            };
-            List<NewUser> userList = jdbc.query(sql, mapper);
+            List<NewUser> userList = jdbc.query(sql, new UserRowMapper());
             if (userList.isEmpty()) return false;
             else return userList.size() <= 1;
 
         } else
             return false;
+    }
+
+    public boolean logoutUser(AuthUser user) throws SQLException {
+        String sql = new Formatter()
+                .format("SELECT * FROM online_users_table where email = '%s' ",
+                        user.getEmail())
+                .toString();
+
+        List<OnlineUser> userList = jdbc.query(sql, new OnlineUserRowMapper());
+        if (userList.isEmpty()) return false;
+        else return userList.size() <= 1;
     }
 }
