@@ -1,7 +1,7 @@
 package com.MyChat.controller;
 
 import com.MyChat.repositories.UserRepository;
-import com.MyChat.response.ResponseToAddUser;
+import com.MyChat.response.StatusInResponse;
 import com.MyChat.user.AuthUser;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +16,19 @@ public class AuthUserController {
     }
 
     @PostMapping
-    public ResponseToAddUser authUser(@RequestBody AuthUser user) {
+    public StatusInResponse authUser(@RequestBody AuthUser user) {
         try {
             boolean result = userRepository.authUser(user);
-            if (result) return ResponseToAddUser.of("user authorized" );
-            else return ResponseToAddUser.of("user unauthorized" );
+            if (result) {
+
+                return StatusInResponse.of("user authorized" );
+            }
+            else return StatusInResponse.of("user unauthorized" );
 
             // TODO: юзер добавляется в БД, где записаны участники, осуществившие вход
             // TODO: создать эндпоинт для выхода из системы - пользователь удаляется из БД онлайн-участников
         } catch (Exception e) {
-            return ResponseToAddUser.of("EXCEPTION WHILE authUser !! = " + e);
+            return StatusInResponse.of("EXCEPTION WHILE authUser !! = " + e);
         }
     }
 }
